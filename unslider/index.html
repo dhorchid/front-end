@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>unslider demo</title>
+    <link rel="stylesheet" href="./css/unslider.css">
+    <!-- dots.css 类似美化类 -->
+    <link rel="stylesheet" href="./css/unslider-dots.css">
+    <style>
+        .banner{ position: relative; }
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <a href="#">
+            <img src="./img/left.png" alt="" class="arrows prev">
+        </a>
+
+        <ul>
+            <li><img src="./img/banner.png" alt=""></li>
+            <li><img src="./img/banner.png" alt=""></li>
+            <li><img src="./img/banner.png" alt=""></li>
+        </ul>
+
+        <a href="#">
+            <img src="./img/right.png" alt="" class="arrows next">
+        </a>
+    </div>
+
+    <!-- unslider控制器 -->
+    <script>
+        $(document).ready(function(e) {
+            var unslider = $('.banner').unslider({
+                speed: 500,		//  切换的速度
+                delay: 3000,	//  切换的速度
+                keys: true,	    //  是否启用左右按钮控制slider切换
+                fluid: false,	// 是否每次在容器大小改变的时候，修正slider的大小
+                pause:true,		//鼠标以上去是否暂停播放
+                items: '>ul',   // slides jquery选择容器的标签
+                item: '>li',    // slides items 选择容器的标签
+                fluid: f,       // 是否是一个百分比的宽度（boolean)
+                arrows: f,      // 是否显现 上一页下一页的箭头 (boolean)
+                dots: f,	    // 是否显现 可以切换的控制点  (boolean)
+                autoplay: true  // 自动播放
+            }),
+            //实例化一个unslider数据
+            unsliderdata = unslider.data('unslider');
+
+            //通过.arrows 控制轮播数据左右切换
+            $('.arrows').click(function() {
+                //this.classname.split  遍历当前这个classname的标签的classname
+                //这个classname 一共有两个， 下标为0时，arrows 下标为 1 时，next/prev.
+                var fn = this.className.split(' ')[1];
+
+                //调用unsliderdata实例的 next方法或者prev方法
+                /**
+                 * unslider的方法：
+                 *
+                 * 1, init 初始化方法
+                 * 2，start 开始
+                 * 3，stop 停止
+                 * 4，destroyKeys 移除或释放掉任何按钮 即keys
+                 * 5, swipe 一般不用
+                 * 6，destroySwipe 释放swipe
+                 * 7, next 下一个
+                 * 8，prev 上一个
+                 * 9，setIndex 设置第一个
+                **/
+                unsliderdata[fn]();
+            });
+        });
+    </script>
+
+
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/unslider-min.js"></script>
+</body>
+</html>
